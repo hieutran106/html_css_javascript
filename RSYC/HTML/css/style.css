@@ -127,13 +127,33 @@ footer {
     top: 0;
     /*left: -300px;       original*/
     right: -300px;
-    background: #428bca;
+    background: #1e345a;
     padding: 15px;
 }
+
 
 #site-wrapper.show-nav #site-canvas {
     -webkit-transform: translateX(-300px);
     transform: translateX(-300px);
+}
+.side_nav li a {
+
+    font-size: 30px;
+    padding: 10px 0px 10px 0px;
+    color: #c5cddd;
+
+}
+.side_nav li a:hover {
+    color: white;
+    text-decoration: none;
+}
+.side_nav button {
+    width: 250px;
+    margin-top: 20px;
+}
+
+.side_nav li {
+    border-bottom: 1px solid #445a81;
 }
 
 @media only screen and (max-width: 992px) {

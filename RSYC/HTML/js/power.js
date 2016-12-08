@@ -1,20 +1,13 @@
 /**
  * Created by n9639799 on 8/12/2016.
  */
-/*====================================
- =            ON DOM READY            =
- ====================================*/
-$(function() {
-    $('.toggle-nav').click(function() {
-        // Calling a function in case you want to expand upon this.
-        toggleNav();
-    });
-});
+
+var button=document.getElementById("toggle-nav");
+button.onclick=function () {
+    toggleNav();
+};
 
 
-/*========================================
- =            CUSTOM FUNCTIONS            =
- ========================================*/
 function toggleNav() {
     if ($('#site-wrapper').hasClass('show-nav')) {
         // Do things on Nav Close
@@ -24,5 +17,4 @@ function toggleNav() {
         $('#site-wrapper').addClass('show-nav');
     }
 
-//$('#site-wrapper').toggleClass('show-nav');
 }
