@@ -1,0 +1,125 @@
+body {
+  font-family: 'Tangerine', serif;
+}
+.navbar {
+  background-color: white;
+  border: 0px;
+}
+.navbar-header img {
+    width: 60%;
+    height: auto;
+}
+.navbar-nav {
+  padding: 5px 0px;
+}
+.banner {
+   position: relative;
+}
+.banner_img {
+  width: 100%;
+  height: auto;
+}
+.banner_text {
+  position: absolute;
+   top: 50%;
+   text-align: center;
+   font-size: 60px;
+   color: white;
+   transform: translateY(-50%);
+}
+.carousel-indicators li {
+  background-color: black;
+}
+.carousel-indicators {
+  float: right;
+}
+.carousel-indicators li.active {
+  background-color: orange;
+}
+.banner_box {
+   margin: 0;
+   position: absolute;
+   width: 860px;
+   height: 120px;
+   background-color: white;
+
+   top: 65%;
+   left: 50%;
+   -ms-transform: translate(-50%, -50%);
+   transform: translate(-50%, -50%);
+}
+.body {
+  background-color: #ecf0f7;
+}
+.promotion {
+  color:#081d45;
+  text-align: center;
+  font-size: 30px;
+  padding: 30px 0px 30px 0px;
+}
+.carousel {
+  background: white;
+  max-width: 85%;
+  height: auto;
+  margin: auto;
+
+}
+
+.carousel-inner>.item img {
+  float: left;
+  width: 30%;
+  height: auto;
+  padding: 10px 10px;
+}
+.carousel-inner>.item>.carousel_title {
+  color: #081d45;
+  font-size: 120%;
+  font-weight: bold;
+  padding: 10px 10px;
+}
+.carousel-inner>.item>.carousel_link {
+  color: red;
+  font-weight: bold;
+}
+footer {
+  background: #011841;
+}
+.col-sm-4 {
+  color: white;
+}
+.col-sm-4 p {
+  color: #8796b1;
+}
+.col-sm-4 h5 {
+  padding-top: 10px;
+}
+.footer2 p{
+  color: #8796b1;
+  border-top: 1px solid white;
+  padding: 10px 0px 10px 0px;
+  font-size: 80%;
+}
+.footer1 {
+  padding-bottom: 10px;
+}
+@media only screen and (max-width: 992px) {
+	 /* For mobile phones: */
+	 nav>div.container ul {
+     float:left !important;
+   }
+
+}
+@media only screen and (max-width: 768px) {
+	 /* For mobile phones: */
+
+  .banner_text {
+    font-size: 26px;
+  }
+}
+@media only screen and (max-width: 320px) {
+	 /* For mobile phones: */
+
+  .banner_text {
+    font-size: 100%;
+  }
+}

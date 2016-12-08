@@ -1,0 +1,39 @@
+body {
+	font-family: 'Varela Round', sans-serif;
+}
+footer {
+	background-color: #d9e4ea;
+	padding: 20px 0px 20px 0px;
+	text-align: center;
+}
+.navbar {
+ background: white;
+ border: 0;
+ margin-bottom: 0px;
+}
+nav.navbar .navbar-header> a.navbar-brand {
+	color: #122833;
+	font-weight: bold;
+}
+ul.nav.navbar-nav > li > a {
+	color: #3acec2;
+	font-weight: bold;
+}
+.logo {
+	background-color: #3acec2;
+	max-width: 100%;
+
+}
+
+.logo h2, h4 {
+	margin: auto;
+	color: white;
+}
+.logo_container {
+	text-align: center;
+	margin: auto;
+	padding: 40px 0px 40px 0px;
+}
+.col-sm-4 h2 {
+	color: #122833;
+}
