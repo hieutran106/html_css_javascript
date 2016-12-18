@@ -65,8 +65,8 @@ router.route('/items')
         var item = {name: req.body.name, status: req.body.status};
 
         db.insert(item, function (err, newDoc) {
-            console.log("Created an item, id="+newDoc._id);
-            res.json({_id:newDoc._id,message: 'Item created!'});
+            console.log("Created an item, id=" + newDoc._id);
+            res.json({_id: newDoc._id, message: 'Item created!'});
         });
     })
     //get all todo items
@@ -78,7 +78,7 @@ router.route('/items')
     })
 ;
 router.route('/items/:item_id')
-    //delete item with id
+//delete item with id
     .delete(function (req, res) {
         console.log(req.params.item_id);
         db.remove({_id: req.params.item_id}, {}, function (err, numRemoved) {
@@ -88,13 +88,26 @@ router.route('/items/:item_id')
     })
     //update item with id
     .put(function (req, res) {
-        db.update({_id: req.params.item_id}, {
-            name: req.body.name,
-            status: req.body.status
-        }, {}, function (err, numReplaced) {
-            console.log('Update id=' + req.params.item_id + 'successfully!');
-            res.json({_id: req.params.item_id, message: 'Update successfully!'});
-        })
+        if (req.body.name!=null) {
+            //Update name
+            db.update({_id: req.params.item_id}, { $set: {
+                name: req.body.name
+            } }, {}, function (err, numReplaced) {
+                console.log('Update name, id=' + req.params.item_id + ' successfully!');
+                res.json({_id: req.params.item_id, message: ' Update successfully!'});
+            })
+        } else if (req.body.status!=null) {
+            //Update status
+            db.update({_id: req.params.item_id}, { $set: {
+                status: req.body.status
+            } }, {}, function (err, numReplaced) {
+                console.log('Update status, id=' + req.params.item_id + ' successfully!');
+                res.json({_id: req.params.item_id, message: ' Update successfully!'});
+            })
+        } else {
+            res.json({message:"Bad update request"});
+            console.log("Bad update request");
+        }
     })
 ;
 
