@@ -1,0 +1,238 @@
+<!doctype html>
+<!--suppress ALL -->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://fb.me/react-15.2.1.js"></script>
+    <script src="https://fb.me/react-dom-15.2.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
+    <!-- REMOVE ME IF YOU INCLUDE CSS THROUGH JAVASCRIPT -->
+    <link rel="stylesheet" href="./index.css">
+    <!-- REMOVE ME IF YOU INCLUDE CSS THROUGH JAVASCRIPT -->
+    <title>React App</title>
+</head>
+<body>
+<div id="root">
+    <div class="app">
+
+    </div>
+</div>
+<script type="text/babel">
+    var Item = React.createClass({
+        render() {
+            return (
+                    <div className="item">
+                        <div className="item-left">
+                            <div className="item-image"><img src={this.props.data.img}/></div>
+                            <div className="item-title">{this.props.data.title}</div>
+                            <div className="item-description">{this.props.data.description}</div>
+                        </div>
+                        <div className="item-right">
+                            <div className="item-price">${this.props.data.price}</div>
+                            <button onClick={() => this.props.onAction(this.props.data.id,1)} className="item-addToCart">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+            )
+        }
+    })
+    var CartItem = React.createClass({
+            render() {
+                return (
+                        <li className="cartpage-item">
+                            <div className="item">
+                                <div className="item-left">
+                                    <div className="item-image"><img src={this.props.data.img}/></div>
+                                    <div className="item-title">{this.props.data.title}</div>
+                                    <div className="item-description">{this.props.data.description}</div>
+                                </div>
+                                <div className="item-right">
+                                    <div className="item-price">${this.props.data.price*this.props.data.amount}</div>
+                                    <div className="cartitem-controls">
+                                        <button onClick={() => this.props.onAction(this.props.data.id,-1)} className="cartitem-removeOne">-</button>
+                                        <span className="cartitem-count">{this.props.data.amount}</span>
+                                        <button onClick={() => this.props.onAction(this.props.data.id,+1)} className="cartitem-addOne">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                )
+            }
+        }
+    )
+    var App = React.createClass({
+        getInitialState() {
+            return ({
+                view: 0,
+                items: [{
+                    id: 0,
+                    title: "Apple iMac with Retina 5K display 27inch 3.3GHz",
+                    description: "27-inch (diagonal) 5120-by-2880-pixel Retina 5K display",
+                    img: "img/iMac.jpg",
+                    price: 30,
+                    amount: 0
+                },
+                    {
+                        id: 1,
+                        title: "Microsoft Surface Pro 4 i7 256GB Tablet (16GB RAM)",
+                        description: "Intel Core i7 processor, Surface Pen Included",
+                        img: "img/surface.jpg",
+                        price: 50,
+                        amount: 0
+                    },
+                    {
+                        id: 2,
+                        title: "PS4 PlayStation 4 1TB Pro Console",
+                        description: "PlayStation®4 Pro is a high-spec console that delivers the ultimate gaming and entertainment experience with spectacular graphics and unrivalled power.",
+                        img: "img/ps4.jpg",
+                        price: 15,
+                        amount: 0
+                    },
+                    {
+                        id: 3,
+                        title: "Dell Inspiron 15-3000 15.6inch Laptop",
+                        description: "15.6-inch HD (1366x768) Trulife LED-Backlit Display, Intel Core Pentium N3710 Quad Core 1.6GHz (2MB L2, up to 2.56GHz)",
+                        img: "img/dell.jpg",
+                        price: 10,
+                        amount: 0
+                    }
+                ]
+                ,
+            })
+        },
+        addItemToCart(index) {
+            var item = this.state.items[index];
+            item.amount++;
+            var arrayvar = this.state.items.slice();
+            this.setState({items: arrayvar});
+        },
+        editItemsInCart(index,operation) {
+
+            var item = this.state.items[index];
+            if (operation===-1) {
+                if (item.amount>0) {
+                    item.amount--;
+
+                }
+            } else {
+                item.amount++;
+            }
+
+            var arrayvar = this.state.items.slice();
+            this.setState({items: arrayvar});
+
+        },
+        switchView(source) {
+
+            if (this.state.view === 0 && source=="cart-btn") {
+                this.setState({view: 1})
+            } else  if (this.state.view === 1 && source=="items-btn") {
+                this.setState({view: 0})
+            }
+        },
+        renderCartItems() {
+            var totalMoney = 0;
+            for (var i = 0; i < this.state.items.length; i++) {
+                var item = this.state.items[i];
+                totalMoney += item.price * item.amount;
+            }
+
+            if (totalMoney === 0) {
+                return (
+                        <div className="app-cartpage-empty">There is no item in your cart</div>
+                )
+            } else {
+                var itemsInCart = this.state.items.filter((item) => item.amount > 0);
+
+                return ( <div className="cart-container">
+                    <ul className="cartpage-items">
+                        {itemsInCart.map((item, i) => {
+                            return (<CartItem key={i} data={item} onAction={(index,op) => this.editItemsInCart(index,op)}/>)
+                        })}
+                    </ul>
+                    <div className="cartpage-total">
+                        Total: ${totalMoney}
+                    </div>
+                </div>)
+
+            }
+        },
+        renderItems() {
+
+            return (
+                    <ul className="itempage-item">
+                        {this.state.items.map((item, i) => {
+                            return (
+                                    <Item key={i} data={item} onAction={(index,op) => this.editItemsInCart(index,op)}/>
+                            )
+                        })}
+                    </ul>
+            )
+        },
+        render () {
+            var content = this.state.view ? this.renderCartItems() : this.renderItems()
+            var navigation;
+
+            var numItemsInCart=0;
+            var totalMoney = 0;
+            for (var i = 0; i < this.state.items.length; i++) {
+                var item = this.state.items[i];
+                if (item.amount>0) {
+                    totalMoney += item.price * item.amount;
+                    numItemsInCart+=item.amount;
+                }
+
+            }
+
+            if (this.state.view === 0) {
+
+                content = this.renderItems();
+                navigation = <ul>
+                    <li className="app-nav-item selected">
+                        <a onClick={() => this.switchView("items-btn")}>Items</a>
+                    </li>
+                    <li className="app-nav-item">
+                        <a onClick={() => this.switchView("cart-btn")}>Cart</a>
+                    </li>
+                </ul>;
+            } else {
+                navigation = <ul>
+                    <li className="app-nav-item">
+                        <a onClick={() => this.switchView("items-btn")}>Items</a>
+                    </li>
+                    <li className="app-nav-item selected">
+                        <a onClick={() => this.switchView("cart-btn")}>Cart</a>
+                    </li>
+                </ul>;
+                content = (<div className="cart-container">
+                    {this.renderCartItems()}
+
+                </div>);
+
+            }
+            return (
+                    <div className="app">
+                        <nav className="app-nav">
+                            {navigation}
+                            <div className="app-cart-summary">
+                                <a onClick={() => this.switchView("cart-btn")}>
+                                    <i className="fa fa-shopping-cart" aria-hidden="true"></i>
+                                    {numItemsInCart} items (${totalMoney})
+                                </a>
+                            </div>
+                        </nav>
+                        {content}
+                    </div>
+            )
+
+        }
+    })
+    ReactDOM.render(<App/>,
+        document.getElementById('root'))
+</script>
+</body>
+</html>
